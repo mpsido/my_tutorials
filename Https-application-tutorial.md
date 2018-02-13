@@ -128,9 +128,9 @@ Download the content of the file using fs:
 
 Kindly ask your app to perform the challenge.
 
-app.get('/.well-known/acme-challenge/*type-generated-path-here*', (req, res) => {
-  res.send(sslforfree);
-});
+    app.get('/.well-known/acme-challenge/*type-generated-path-here*', (req, res) => {
+      res.send(sslforfree);
+    });
 
 Save and restart your app on the server.
 
@@ -142,15 +142,15 @@ Replace your "self certified" keys by those you just downloaded.
 
 You node.js application source code may look like this:
 
-const key = fs.readFileSync('encryption/private.key');
-const cert = fs.readFileSync('encryption/certificate.crt');
-const ca = fs.readFileSync('encryption/ca_bundle.crt');
+    const key = fs.readFileSync('encryption/private.key');
+    const cert = fs.readFileSync('encryption/certificate.crt');
+    const ca = fs.readFileSync('encryption/ca_bundle.crt');
 
-const options = {
-  key,
-  cert,
-  ca,
-};
+    const options = {
+      key,
+      cert,
+      ca,
+    };
 
 
 Don't forget to update nginx configuration as well.
