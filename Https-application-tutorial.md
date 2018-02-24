@@ -76,29 +76,30 @@ Make a backup of the nginx configuration file:
 Edit the /etc/nginx/sites-available/default file (root privileges needed).
 
 redirect to https
-server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
-        server_name _;
-        # Tell nginx to redirect the traffic to the same url with https instead of http
-        return 301 https://$host$request_uri;
-}
 
-server {
-        # SSL configuration
-        #
-        listen 443 ssl default_server;
-        listen [::]:443 ssl default_server;
-        # tell nginx where to find the 
-        include snippets/self-signed.conf;
+    server {
+            listen 80 default_server;
+            listen [::]:80 default_server;
+            server_name _;
+            # Tell nginx to redirect the traffic to the same url with https instead of http
+            return 301 https://$host$request_uri;
+    }
 
-        # don't forget to check that you are redirecting to the *https* protocol
-        location / {
-            # [...]
-            proxy_pass https://localhost:8080; 
-            # [...]
-        }
-}
+    server {
+            # SSL configuration
+            #
+            listen 443 ssl default_server;
+            listen [::]:443 ssl default_server;
+            # tell nginx where to find the 
+            include snippets/self-signed.conf;
+
+            # don't forget to check that you are redirecting to the *https* protocol
+            location / {
+                # [...]
+                proxy_pass https://localhost:8080; 
+                # [...]
+            }
+    }
 
 Check nginx configuration and restart it:
 
