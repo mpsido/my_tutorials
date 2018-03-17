@@ -54,4 +54,5 @@ On the browser try url: localhost:5000/graphiql (should show a webapp)
     ql '{ allEntries { edges { node { projectName, resource } }}}' http://localhost:5000/graphql
 
 Query with filter.
+    
     ql '{ allEntries(condition: {resource: "Ricky"}) { edges { node {projectName, resource }}}}' http://localhost:5000/graphql
