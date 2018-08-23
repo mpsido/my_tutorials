@@ -8,7 +8,7 @@ You can just run this command: it will generate the files you need.
 
     mkdir encryption
     cd encryption
-    openssl req -newkey rsa:2048 -nodes -keyout domain.key -x509 -days 365 -out domain.crt
+    openssl req -newkey rsa:2048 -nodes -keyout private.key -x509 -days 365 -out certificate.crt
 
 Answer the questions you are asked the way you want, these keys are temporary anyway.
 
@@ -29,13 +29,22 @@ Read the keys you generated:
 
     const key = fs.readFileSync('encryption/private.key');
     const cert = fs.readFileSync('encryption/certificate.crt');
-    const ca = fs.readFileSync('encryption/ca_bundle.crt');
+    // const ca = fs.readFileSync('encryption/ca_bundle.crt'); // you did not generate this file, but the certification authority will do it for you
 
     const options = {
       key,
       cert,
-      ca = cert, //this is a cheat trick, you don't need authentification for now, just user yourself as Certification Authority
+      // ca, // you don't need authority for now
     };
+
+Create a "simple" application serving an html file:
+
+    var content = fs.readFileSync('index.html');
+    var app = function(req, res) {
+        res.writeHead(200, {"Content-Type": "text/html"});
+        res.end(content);
+    };
+
 
 Kindly ask https to listen on an open port and redirect the requests to your app.
     
